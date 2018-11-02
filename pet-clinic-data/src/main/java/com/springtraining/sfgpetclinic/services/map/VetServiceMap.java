@@ -1,10 +1,11 @@
 package com.springtraining.sfgpetclinic.services.map;
 
-import com.springtraining.sfgpetclinic.model.Vet;
-import com.springtraining.sfgpetclinic.services.VetService;
+import java.util.Set;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import com.springtraining.sfgpetclinic.model.Vet;
+import com.springtraining.sfgpetclinic.services.VetService;
 
 @Service
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
@@ -21,7 +22,7 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
 
     @Override
     public Vet save(Vet object) {
-        return super.save(object.getId(), object);
+        return super.save(object);
     }
 
     @Override
