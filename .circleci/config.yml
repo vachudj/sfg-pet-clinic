@@ -27,15 +27,15 @@ jobs:
       - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
 
-            - save_cache: # saves the project dependencies
-                paths:
-                  - ~/.m2
-                key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
+      - save_cache: # saves the project dependencies
+          paths:
+            - ~/.m2
+          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
 
-            - run: mvn package # run the actual tests
+      - run: mvn package # run the actual tests
 
-            - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
-                path: target/surefire-reports
+      - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
+          path: target/surefire-reports
 
-            - store_artifacts: # store the uberjar as an artifact
-                path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
+      - store_artifacts: # store the uberjar as an artifact
+          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
