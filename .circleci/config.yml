@@ -24,22 +24,24 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache: # restore the saved cache after the first run or if `pom.xml` has changed
+      # Download and cache dependencies
+      - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "pom.xml" }}
-#          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
+          # fallback to using latest cache if no exact match is found
           - v1-dependencies-
+
+      - run: mvn install -DskipTests
 
       - run: mvn dependency:go-offline
 
       - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
-#          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests!
-      - run: mvn install
+      - run: mvn integration-test
 
 workflows:
   version: 2
